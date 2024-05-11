@@ -1,0 +1,15 @@
+//@version=5
+strategy("5 Days Low Mean Reversion", overlay=true, default_qty_type=strategy.percent_of_equity, default_qty_value=99, initial_capital=1000)
+
+period = input(5)
+
+// Identify if the current close is the lowest of the last 5 closes
+lowest_close = ta.lowest(close, period)
+is_lowest_close = close == lowest_close
+
+highClose = close[1] < close
+
+if is_lowest_close 
+    strategy.entry("Long", strategy.long)
+if highClose
+    strategy.close("Long")
